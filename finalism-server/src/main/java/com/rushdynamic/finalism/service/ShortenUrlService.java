@@ -12,7 +12,7 @@ import com.rushdynamic.finalism.repository.UrlRepository;
 public class ShortenUrlService {
 	
 	@Autowired
-	UrlRepository urlRepository;
+	private UrlRepository urlRepository;
 	
 	public ShortenUrlOutputDto shortenUrl(ShortenUrlInputDto shortenUrlInput) {
 		ShortenUrlOutputDto shortenUrlOutput = new ShortenUrlOutputDto();

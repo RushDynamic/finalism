@@ -15,7 +15,7 @@ import com.rushdynamic.finalism.service.ShortenUrlService;
 public class DataController {
 
 	@Autowired
-	ShortenUrlService shortenUrlService;
+	private ShortenUrlService shortenUrlService;
 	
 	@PostMapping("/shorten")
 	public ShortenUrlResponseOutput echo(@RequestBody ShortenUrlInputDto shortenUrlInput) {
