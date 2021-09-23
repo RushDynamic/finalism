@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rushdynamic.finalism.dto.ShortenUrlInputDto;
 import com.rushdynamic.finalism.dto.ShortenUrlOutputDto;
+import com.rushdynamic.finalism.entity.UrlEntity;
 import com.rushdynamic.finalism.repository.UrlRepository;
 
 public class ShortenUrlService {
@@ -15,7 +16,15 @@ public class ShortenUrlService {
 	
 	public ShortenUrlOutputDto shortenUrl(ShortenUrlInputDto shortenUrlInput) {
 		ShortenUrlOutputDto shortenUrlOutput = new ShortenUrlOutputDto();
-		shortenUrlOutput.setShortenedUrl(generateUrlToken(shortenUrlInput.getOriginalUrl()));
+		String shortUrl = generateUrlToken(shortenUrlInput.getOriginalUrl());
+		shortenUrlOutput.setShortenedUrl(shortUrl);
+		
+		// write to DB
+		UrlEntity urlEntity = new UrlEntity();
+		urlEntity.setShortUrl(shortUrl);
+		urlEntity.setOriginalUrl(shortenUrlInput.getOriginalUrl());
+		urlRepository.save(urlEntity);
+		
 		return shortenUrlOutput;
 	}
 	
