@@ -1,15 +1,19 @@
 package com.rushdynamic.finalism.service;
 
-import java.util.Base64;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import com.rushdynamic.finalism.dto.ShortenUrlInputDto;
 import com.rushdynamic.finalism.dto.ShortenUrlOutputDto;
 import com.rushdynamic.finalism.entity.UrlEntity;
 import com.rushdynamic.finalism.repository.UrlRepository;
+import com.rushdynamic.finalism.util.FinalismAppUtil;
 
 public class ShortenUrlService {
+	
+	Logger logger = LoggerFactory.getLogger(ShortenUrlService.class);
 	
 	@Autowired
 	private UrlRepository urlRepository;
@@ -20,32 +24,21 @@ public class ShortenUrlService {
 		shortenUrlOutput.setShortenedUrl(shortUrl);
 		
 		// write to DB
-		UrlEntity urlEntity = new UrlEntity();
-		urlEntity.setShortUrl(shortUrl);
-		urlEntity.setOriginalUrl(shortenUrlInput.getOriginalUrl());
-		urlRepository.save(urlEntity);
-		
+		try {
+			UrlEntity urlEntity = new UrlEntity();
+			urlEntity.setShortUrl(shortUrl);
+			urlEntity.setOriginalUrl(shortenUrlInput.getOriginalUrl());
+			urlRepository.save(urlEntity);
+		}
+		catch(DataIntegrityViolationException ex) {
+			logger.debug("URL already exists in DB, returning existing shortened URL");
+		}
 		return shortenUrlOutput;
 	}
 	
 	private String generateUrlToken(String originalUrl) {
-		String cleanUrl = cleanUrl(originalUrl);
+		String cleanUrl = FinalismAppUtil.cleanUrl(originalUrl);
 		return tokenize(cleanUrl);
-	}
-	
-	private String rightPadString(String inputStr, Integer paddingLen) {
-		return (inputStr.length() < paddingLen ? rightPadString(inputStr + "0", paddingLen) : inputStr);
-	}
-	
-	private String encodeBase64(String inputStr) {
-		return Base64.getEncoder().encodeToString(inputStr.getBytes());
-	}
-	
-	private String cleanUrl(String originalUrl) {
-		// TODO: Remove http/https, www, and // before encoding
-		String encodedUrl = encodeBase64(originalUrl);
-		String cleanUrl = encodedUrl.replaceAll("[^a-zA-Z0-9]", "");
-		return rightPadString(cleanUrl, 7);
 	}
 	
 	private String tokenize(String inputStr) {
