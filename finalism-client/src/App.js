@@ -1,11 +1,15 @@
 import Header from "./components/header/Header";
 import Submit from "./components/submit/Submit";
 import 'semantic-ui-css/semantic.min.css'
+import './styles/app.scss';
 
 function App() {
   return (
     <div>
-      <Header />
+      <div className="main-container">
+        <Header />
+      </div>
+
       <Submit />
     </div>
   );

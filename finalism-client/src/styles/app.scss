@@ -1,0 +1,11 @@
+@import './vars.scss';
+@import './global.scss';
+
+h1 {
+    font-size: 5rem;
+}
+
+.main-container {
+    @include flexMiddle();
+
+}
