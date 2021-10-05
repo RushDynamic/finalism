@@ -8,9 +8,8 @@ function App() {
     <div>
       <div className="main-container">
         <Header />
+        <Submit />
       </div>
-
-      <Submit />
     </div>
   );
 }
