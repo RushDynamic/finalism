@@ -2,15 +2,21 @@
 
 .submit-container {
     @include flexMiddle();
-    width: 100%;
+    flex-direction: column;
+    width: 50%;
     height: 100%;
 
     .submit-inner-container {
         width: 100%;
         @include flexMiddle();
         .submit-input-field {
-            width: 50%;
+            width: 100%;
         }
+    }
+
+    .result-container {
+        margin: 5vh;
+        width: 100%;
     }
 }
 
