@@ -1,25 +1,23 @@
 import React, { useState } from "react";
 import { Input, Segment, Header, Icon } from "semantic-ui-react";
 import '../../styles/submit.scss';
-
-const ResultSegment = (resultFetched) => {
-    return (resultFetched && (
-        <Segment placeholder>
-            <Header icon>
-                <Icon name="world" />
-                Here's your shortened URL
-            </Header>
-        </Segment>)
-    )
-}
+import ResultSegment from './ResultSegment.js';
 
 function Submit() {
-    const [resultFetched, setResultFetched] = useState(false);
+    const [resultFetched, setResultFetched] = useState(true);
+    const [inputUrl, setInputUrl] = useState("");
+
+    const handleOnSubmitUrl = () => {
+    }
+
+    const handleOnSubmitUrlChange = (e) => {
+        setInputUrl(e.target.value);
+    }
 
     return (
         <div className='submit-container'>
             <div className='submit-inner-container'>
-                <Input className='submit-input-field' action='Submit' placeholder='Enter a URL...' />
+                <Input size='huge' onChange={handleOnSubmitUrlChange} className='submit-input-field' action={{ icon: 'cut', onClick: handleOnSubmitUrl }} placeholder='Enter a URL...' />
             </div>
             <div className='result-container'>
                 {ResultSegment(resultFetched)}
