@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { Input, Segment, Header, Icon } from "semantic-ui-react";
 import '../../styles/submit.scss';
+import { shortenUrl } from "../../services/finalism-api-service";
 import ResultSegment from './ResultSegment.js';
 
 function Submit() {
     const [resultFetched, setResultFetched] = useState(true);
     const [inputUrl, setInputUrl] = useState("");
+    const [outputUrl, setOutputUrl] = useState("");
 
-    const handleOnSubmitUrl = () => {
+    const handleOnSubmitUrl = async () => {
+        const respData = await shortenUrl(inputUrl);
+        console.log(respData);
+        setOutputUrl(respData.shortenUrlOutput.shortenedUrl);
     }
 
-    const handleOnSubmitUrlChange = (e) => {
+    const handleOnSubmitUrlChange = async (e) => {
         setInputUrl(e.target.value);
     }
 
@@ -21,6 +26,7 @@ function Submit() {
             </div>
             <div className='result-container'>
                 {ResultSegment(resultFetched)}
+                {outputUrl != "" && <h1>Shortened URL: finalism.com/{outputUrl}</h1>}
             </div>
         </div>)
 }
