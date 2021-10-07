@@ -1,0 +1,8 @@
+@import './global.scss';
+
+.redirect-container {
+    @include flexMiddle();
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+}
