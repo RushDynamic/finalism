@@ -11,3 +11,14 @@ export async function shortenUrl(originalUrl) {
     });
     return await resp.json();
 }
+
+export async function fetchOriginalUrl(shortUrl) {
+    let apiUrl = `http://localhost:8080/fetch/${shortUrl}`;
+    let resp = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return await resp.json();
+}
