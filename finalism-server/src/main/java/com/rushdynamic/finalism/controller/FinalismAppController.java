@@ -1,10 +1,17 @@
 package com.rushdynamic.finalism.controller;
 
+import java.net.URISyntaxException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rushdynamic.finalism.dto.OriginalUrlOutputDto;
+import com.rushdynamic.finalism.dto.OriginalUrlResponseOutput;
 import com.rushdynamic.finalism.dto.ResponseOutput;
 import com.rushdynamic.finalism.dto.ShortenUrlInputDto;
 import com.rushdynamic.finalism.dto.ShortenUrlOutputDto;
@@ -12,21 +19,27 @@ import com.rushdynamic.finalism.dto.ShortenUrlResponseOutput;
 import com.rushdynamic.finalism.service.ShortenUrlService;
 
 @RestController
-public class DataController {
+public class FinalismAppController {
 
 	@Autowired
 	private ShortenUrlService shortenUrlService;
 	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/shorten")
-	public ShortenUrlResponseOutput echo(@RequestBody ShortenUrlInputDto shortenUrlInput) {
+	public ShortenUrlResponseOutput shorten(@RequestBody ShortenUrlInputDto shortenUrlInput) {
 		ShortenUrlResponseOutput shortenUrlOutputResponse = new ShortenUrlResponseOutput();
 		ShortenUrlOutputDto shortenUrlOutput = shortenUrlService.shortenUrl(shortenUrlInput);
 		
-		ResponseOutput response = new ResponseOutput();
-		response.setStatus("200");
-		response.setMessage("Successfully shortened URL");
+		ResponseOutput response = new ResponseOutput("200", "Successfully shortened URL");
 		shortenUrlOutputResponse.setShortenUrlOutput(shortenUrlOutput);
 		shortenUrlOutputResponse.setResponse(response);
 		return shortenUrlOutputResponse;
+	}
+	
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/{shortUrl}")
+	public OriginalUrlResponseOutput fetchOriginalUrl(@PathVariable("shortUrl") String shortUrl) throws URISyntaxException {
+		ResponseOutput response = new ResponseOutput("200", "Successfully fetched original URL");
+		return new OriginalUrlResponseOutput(shortenUrlService.fetchOriginalUrl(shortUrl), response);
 	}
 }
