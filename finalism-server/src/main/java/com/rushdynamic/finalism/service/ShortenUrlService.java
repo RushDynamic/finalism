@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import com.rushdynamic.finalism.dto.OriginalUrlOutputDto;
 import com.rushdynamic.finalism.dto.ShortenUrlInputDto;
 import com.rushdynamic.finalism.dto.ShortenUrlOutputDto;
 import com.rushdynamic.finalism.entity.UrlEntity;
@@ -31,9 +32,25 @@ public class ShortenUrlService {
 			urlRepository.save(urlEntity);
 		}
 		catch(DataIntegrityViolationException ex) {
+			// check if current originalUrl = existing originalUrl
 			logger.debug("URL already exists in DB, returning existing shortened URL");
 		}
 		return shortenUrlOutput;
+	}
+	
+	public OriginalUrlOutputDto fetchOriginalUrl(String shortUrl) {
+		try {
+			UrlEntity urlEntity = urlRepository.findByShortUrl(shortUrl);
+			if (urlEntity != null) {
+				return new OriginalUrlOutputDto(true, urlEntity.getOriginalUrl());
+			}
+			else {
+				throw new Exception();
+			}
+		}
+		catch (Exception ex) {
+			return new OriginalUrlOutputDto(false); //throw 404
+		}
 	}
 	
 	private String generateUrlToken(String originalUrl) {
