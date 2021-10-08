@@ -2,10 +2,6 @@
 @import './global.scss';
 @import './header.scss';
 
-h1 {
-    font-size: 5rem;
-}
-
 .main-container {
     @include flexMiddle();
     flex-direction: column;
