@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Input, Segment, Header, Icon } from "semantic-ui-react";
 import '../../styles/submit.scss';
 import { shortenUrl } from "../../services/finalism-api-service";
 import ResultSegment from './ResultSegment.js';
@@ -19,10 +18,16 @@ function Submit() {
         setInputUrl(e.target.value);
     }
 
+    const handleOnKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleOnSubmitUrl();
+        }
+    }
+
     return (
         <div className='submit-container'>
             <div className='submit-inner-container'>
-                <Input size='huge' onChange={handleOnSubmitUrlChange} className='submit-input-field' action={{ icon: 'cut', onClick: handleOnSubmitUrl }} placeholder='Enter a URL...' />
+                <input className='submit-input-field' onChange={handleOnSubmitUrlChange} onKeyDown={handleOnKeyDown} placeholder='Paste a URL here and hit enter' />
             </div>
             <div className='result-container'>
                 {ResultSegment(resultFetched, outputUrl)}

@@ -10,13 +10,59 @@
         width: 100%;
         @include flexMiddle();
         .submit-input-field {
+            width: 60%;
+            padding: 2vh;
+            font-size: 1.8rem;
+            transition: 0.5s ease;
+            box-shadow: 10px 10px #222222;
+            font-family: 'Rubik', sans-serif;
+            margin-bottom: 1vh;
+        }
+
+        .submit-input-field:focus {
+            outline: none;
+            width: 100%;
+        }
+
+        .submit-input-field:hover {
             width: 100%;
         }
     }
 
     .result-container {
-        margin: 5vh;
+        @include flexMiddle();
+        margin: 2vh 2vh 2vh 2vh;
         width: 100%;
+        background-color: white;
+    }
+
+    .result-inner-container {
+        @include flexMiddle();
+        flex-direction: column;
+        width: 100%;
+        background-color: #E6E6FA;
+        padding: 2vh;
+
+        .result-copy-btn {
+            color: #222222;
+            box-shadow: 5px 5px #222222;
+            border-radius: 0px;
+            padding: 18px 36px;
+            cursor: pointer;
+            background-color: white;
+            transition: 0.2s ease;
+            font-family: 'Rubik', sans-serif;
+            font-variant: small-caps;
+
+            &:hover {
+                background-color: #E6E6FA;
+            }
+
+            &:active {
+                box-shadow: 2px 2px #222222;
+                background-color: #d6d6f9;
+            }
+        }
     }
 }
 

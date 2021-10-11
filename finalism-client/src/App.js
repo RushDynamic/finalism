@@ -3,7 +3,6 @@ import Header from "./components/header/Header";
 import Submit from "./components/submit/Submit";
 import Redirect from "./components/Redirect";
 import NotFound from "./components/error/NotFound";
-import 'semantic-ui-css/semantic.min.css'
 import './styles/app.scss';
 
 
