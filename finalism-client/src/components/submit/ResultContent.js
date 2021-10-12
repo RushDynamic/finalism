@@ -1,9 +1,9 @@
 import React from 'react';
 
-function ErrorContent() {
+function ErrorContent(errorMsg) {
     return (
         <>
-            <h1>Oops, something went wrong.</h1>
+            <h1>{errorMsg}</h1>
         </>
     )
 }
@@ -23,7 +23,7 @@ function ResultContent(props) {
         <div>
             {
                 (
-                    props.isError == true ? ErrorContent() : SuccessContent(props.shortUrl)
+                    props.error.isError ? ErrorContent(props.error.message) : SuccessContent(props.shortUrl)
                 )
             }
         </div>
