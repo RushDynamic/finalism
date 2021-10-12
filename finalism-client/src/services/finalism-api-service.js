@@ -1,6 +1,6 @@
 export async function shortenUrl(originalUrl) {
     // http://localhost:8080/shorten
-    let apiUrl = 'http://localhost:8080/shorten';
+    let apiUrl = `${process.env.REACT_APP_API_URL}/shorten`;
     let reqPayload = { originalUrl: originalUrl };
     let resp = await fetch(apiUrl, {
         method: 'POST',
@@ -13,7 +13,7 @@ export async function shortenUrl(originalUrl) {
 }
 
 export async function fetchOriginalUrl(shortUrl) {
-    let apiUrl = `http://localhost:8080/fetch/${shortUrl}`;
+    let apiUrl = `${process.env.REACT_APP_API_URL}/fetch/${shortUrl}`;
     let resp = await fetch(apiUrl, {
         method: 'GET',
         headers: {
