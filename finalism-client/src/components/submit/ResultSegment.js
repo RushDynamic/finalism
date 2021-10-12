@@ -1,10 +1,10 @@
-const ResultSegment = (resultFetched, shortUrl) => {
+import ResultContent from "./ResultContent";
+
+const ResultSegment = (resultFetched, shortUrl, isError) => {
     return (resultFetched && (
         <div className="result-container">
             <div className="result-inner-container">
-                <h4>Here's your shortened URL:</h4>
-                <h2 style={{ marginTop: '0vh' }}>{shortUrl}</h2>
-                <button className="result-copy-btn" type="button" onClick={() => navigator.clipboard.writeText(shortUrl)}>COPY</button>
+                <ResultContent shortUrl={shortUrl} isError={isError} />
             </div>
         </div>)
     )
