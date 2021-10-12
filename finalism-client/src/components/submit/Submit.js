@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import validUrl from 'valid-url';
+import { validateUrl } from "../../services/validation-util";
 import '../../styles/submit.scss';
 import { shortenUrl } from "../../services/finalism-api-service";
-import ResultSegment from './ResultSegment.js';
+import ResultContainer from './ResultContainer.js';
 
 function Submit() {
     const [resultFetched, setResultFetched] = useState(false);
-    const [isError, setIsError] = useState(false);
+    const [error, setError] = useState({ isError: false, message: '' });
     const [inputUrl, setInputUrl] = useState("");
     const [outputUrl, setOutputUrl] = useState("");
 
     const handleOnSubmitUrl = async () => {
-        if (validUrl.isWebUri(inputUrl)) {
+        if (validateUrl(inputUrl)) {
             const respData = await shortenUrl(inputUrl);
             setOutputUrl(`http://localhost:3000/${respData.shortenUrlOutput.shortenedUrl}`);
-            setIsError(false);
+            setError({ isError: false });
         } else {
-            setIsError(true);
+            setError({ isError: true, message: "That doesn't seem right :[" });
         }
         setResultFetched(true);
     }
@@ -37,7 +37,7 @@ function Submit() {
                 <input className='submit-input-field' onChange={handleOnSubmitUrlChange} onKeyDown={handleOnKeyDown} placeholder='Paste a URL here and hit enter' autoFocus />
             </div>
             <div className='result-container'>
-                {ResultSegment(resultFetched, outputUrl, isError)}
+                <ResultContainer resultFetched={resultFetched} outputUrl={outputUrl} error={error} />
             </div>
         </div>)
 }

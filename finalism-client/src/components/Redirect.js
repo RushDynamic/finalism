@@ -11,7 +11,6 @@ function Redirect() {
     useEffect(() => {
         (async function () {
             const respData = await fetchOriginalUrl(url);
-            console.log("respData:", respData);
             if (respData.originalUrlOutput.success !== true) {
                 history.push('/404');
             }
