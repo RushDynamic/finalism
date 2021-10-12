@@ -1,6 +1,10 @@
 .header-container {
     width: 100%;
     font-variant: small-caps;
+    
+    a {
+        text-decoration: none;
+    }
 
     h1 {
         font-size: 3rem;
@@ -8,5 +12,11 @@
         margin: 2vh;
         font-family: 'Press Start 2P', cursive;
         color: white;
+        text-shadow: 2px 2px #222222;
+
+        &:hover {
+            color: black;
+            text-shadow: 2px 2px white;
+        }
     }
 }
