@@ -10,4 +10,6 @@ export function formatUrl(inputUrl) {
     if (!inputUrl.startsWith("http://") && !inputUrl.startsWith("https://")) {
         return "http://" + inputUrl;
     }
+
+    return inputUrl;
 }
