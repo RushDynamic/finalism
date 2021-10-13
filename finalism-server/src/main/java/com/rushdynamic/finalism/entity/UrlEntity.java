@@ -35,6 +35,10 @@ public class UrlEntity {
 	@Column(name="created_at")
 	Date createdAt;
 	
-	@Column(name="username")
-	String username;
+	@Column(name="last_visited")
+	Date lastVisited;
+	
+	@Column(name="total_hits")
+	int totalHits;
+	
 }

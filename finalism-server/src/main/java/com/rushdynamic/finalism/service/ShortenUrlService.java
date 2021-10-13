@@ -19,6 +19,9 @@ public class ShortenUrlService {
 	@Autowired
 	private UrlRepository urlRepository;
 	
+	@Autowired
+	private TrackingService trackingService;
+	
 	public ShortenUrlOutputDto shortenUrl(ShortenUrlInputDto shortenUrlInput) {
 		ShortenUrlOutputDto shortenUrlOutput = new ShortenUrlOutputDto();
 		String shortUrl = generateUrlToken(shortenUrlInput.getOriginalUrl());
@@ -42,6 +45,8 @@ public class ShortenUrlService {
 		try {
 			UrlEntity urlEntity = urlRepository.findByShortUrl(shortUrl);
 			if (urlEntity != null) {
+				trackingService.trackHits(shortUrl);
+				logger.info("Returned to fetchOriginalUrl");
 				return new OriginalUrlOutputDto(true, urlEntity.getOriginalUrl());
 			}
 			else {
