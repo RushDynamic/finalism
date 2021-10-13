@@ -1,16 +1,15 @@
 package com.rushdynamic.finalism.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
 
@@ -30,15 +29,19 @@ public class UrlEntity {
 	@Column(name="short_url")
 	String shortUrl;
 	
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_at")
-	Date createdAt;
+	Timestamp createdAt;
 	
 	@Column(name="last_visited")
-	Date lastVisited;
+	Timestamp lastVisited;
 	
 	@Column(name="total_hits")
 	int totalHits;
+	
+	@PrePersist
+    public void onInsert() {
+		createdAt = Timestamp.from(ZonedDateTime.now(ZoneId.of("Asia/Kolkata")).toInstant());
+		lastVisited = createdAt;
+    }
 	
 }

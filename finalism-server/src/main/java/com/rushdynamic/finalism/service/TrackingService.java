@@ -1,5 +1,9 @@
 package com.rushdynamic.finalism.service;
 
+import java.sql.Timestamp;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +23,7 @@ public class TrackingService {
 	@Async
 	public void trackHits(String shortUrl) {
 		logger.info("Entered trackHits(): " + shortUrl);
-		urlRepository.incrementHits(shortUrl);
+		urlRepository.incrementHits(shortUrl, Timestamp.from(ZonedDateTime.now(ZoneId.of("Asia/Kolkata")).toInstant()));
 		logger.info("Invoked incrementHits()");
 	}
 }
