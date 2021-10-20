@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
 
 import com.rushdynamic.finalism.dto.OriginalUrlOutputDto;
 import com.rushdynamic.finalism.dto.ShortenUrlInputDto;
@@ -12,6 +13,7 @@ import com.rushdynamic.finalism.entity.UrlEntity;
 import com.rushdynamic.finalism.repository.UrlRepository;
 import com.rushdynamic.finalism.util.FinalismAppUtil;
 
+@Service
 public class ShortenUrlService {
 	
 	Logger logger = LoggerFactory.getLogger(ShortenUrlService.class);
@@ -46,7 +48,6 @@ public class ShortenUrlService {
 			UrlEntity urlEntity = urlRepository.findByShortUrl(shortUrl);
 			if (urlEntity != null) {
 				trackingService.trackHits(shortUrl);
-				logger.info("Returned to fetchOriginalUrl");
 				return new OriginalUrlOutputDto(true, urlEntity.getOriginalUrl());
 			}
 			else {
