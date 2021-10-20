@@ -1,10 +1,17 @@
 package com.rushdynamic.finalism.dto;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class OriginalUrlOutputDto {
+public class OriginalUrlOutputDto implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public boolean success;
 	
 	public String originalUrl;

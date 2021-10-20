@@ -3,6 +3,8 @@ package com.rushdynamic.finalism.controller;
 import java.net.URISyntaxException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import com.rushdynamic.finalism.service.ShortenUrlService;
 
 @CrossOrigin
 @RestController
+@CacheConfig(cacheNames= {"url"})
 public class FinalismAppController {
 
 	@Autowired
@@ -36,6 +39,7 @@ public class FinalismAppController {
 	}
 	
 	@GetMapping("/fetch/{shortUrl}")
+	@Cacheable(key = "#shortUrl")
 	public OriginalUrlResponseOutput fetchOriginalUrl(@PathVariable("shortUrl") String shortUrl) throws URISyntaxException {
 		ResponseOutput response = new ResponseOutput("200", "Successfully fetched original URL");
 		return new OriginalUrlResponseOutput(shortenUrlService.fetchOriginalUrl(shortUrl), response);
