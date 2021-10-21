@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  redis:
+    image: "redis:alpine"
+  finalism-server:
+    env_file: "./finalism-server/.env"
+    build:
+      context: ./finalism-server
+      dockerfile: ./Dockerfile
+    image: "finalism-api-server"
+    ports: 
+      - "8080:8080"
+  postgres:
+    image: "postgres"
+    env_file: "./finalism-server/.env"
