@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  redis-cache:
+    image: "redis:alpine"
+    container_name: "redis-cache"
+  postgres-db:
+    container_name: "postgres-db"
+    image: "postgres:alpine"
+    env_file: "./finalism-server/.env"
+    ports: 
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  finalism-server:
+    container_name: "finalism-api-server"
+    depends_on:
+      - postgres-db
+      - redis-cache
+    env_file: "./finalism-server/.env"
+    build:
+      context: ./finalism-server
+      dockerfile: ./Dockerfile
+    image: "finalism-api-server"
+    ports: 
+      - "8080:8080"
+  finalism-client:
+    build:
+      context: ./finalism-client
+      dockerfile: ./Dockerfile
+    image: "finalism-api-client"
+    container_name: "finalism-api-client"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - finalism-server
+volumes: 
+  pgdata:
