@@ -13,6 +13,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
   finalism-server:
+    container_name: "finalism-api-server"
     depends_on:
       - postgres-db
       - redis-cache
