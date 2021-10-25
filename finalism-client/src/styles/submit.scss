@@ -66,4 +66,19 @@
     }
 }
 
+@media (max-width: 500px) {
+	.submit-container {
+        width: 90%;
+    }
+
+    .submit-inner-container {
+        width: 100%;
+    }
+
+    .submit-input-field {
+        width: 100%;
+        font-size: 1.2rem;
+    }
+}
+
 
