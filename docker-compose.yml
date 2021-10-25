@@ -24,5 +24,15 @@ services:
     image: "finalism-api-server"
     ports: 
       - "8080:8080"
+  finalism-client:
+    build:
+      context: ./finalism-client
+      dockerfile: ./Dockerfile
+    image: "finalism-api-client"
+    container_name: "finalism-api-client"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - finalism-server
 volumes: 
   pgdata:
