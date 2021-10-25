@@ -24,6 +24,7 @@ function Redirect() {
                 history.push('/404');
             }
         })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
