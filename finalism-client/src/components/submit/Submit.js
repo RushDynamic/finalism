@@ -12,9 +12,14 @@ function Submit() {
 
     const handleOnSubmitUrl = async () => {
         if (validateUrl(inputUrl)) {
-            const respData = await shortenUrl(inputUrl);
-            setOutputUrl(`http://localhost:3000/${respData.shortenUrlOutput.shortenedUrl}`);
-            setError({ isError: false });
+            try {
+                const respData = await shortenUrl(inputUrl);
+                setOutputUrl(`http://localhost:3000/${respData.shortenUrlOutput.shortenedUrl}`);
+                setError({ isError: false });
+            }
+            catch (err) {
+                setError({ isError: true, message: "Something went wrong :x" });
+            }
         } else {
             setError({ isError: true, message: "That doesn't seem right :[" });
         }

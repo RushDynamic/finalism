@@ -10,13 +10,18 @@ function Redirect() {
 
     useEffect(() => {
         (async function () {
-            const respData = await fetchOriginalUrl(url);
-            if (respData.originalUrlOutput.success !== true) {
-                history.push('/404');
+            try {
+                const respData = await fetchOriginalUrl(url);
+                if (respData.originalUrlOutput === null || respData.originalUrlOutput.success !== true) {
+                    history.push('/404');
+                }
+                else {
+                    let cleanUrl = formatUrl(respData.originalUrlOutput.originalUrl);
+                    window.location.href = cleanUrl;
+                }
             }
-            else {
-                let cleanUrl = formatUrl(respData.originalUrlOutput.originalUrl);
-                window.location.href = cleanUrl;
+            catch (err) {
+                history.push('/404');
             }
         })();
     }, []);
