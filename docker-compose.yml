@@ -1,9 +1,11 @@
 version: '3'
 
 services:
-  redis:
+  redis-cache:
     image: "redis:alpine"
-  postgres:
+    container_name: "redis-cache"
+  postgres-db:
+    container_name: "postgres-db"
     image: "postgres:alpine"
     env_file: "./finalism-server/.env"
     ports: 
@@ -11,6 +13,9 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
   finalism-server:
+    depends_on:
+      - postgres-db
+      - redis-cache
     env_file: "./finalism-server/.env"
     build:
       context: ./finalism-server
