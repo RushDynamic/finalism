@@ -1,0 +1,12 @@
+@import './global.scss';
+
+.not-found-container {
+    @include flexMiddle();
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+
+    h2 {
+        letter-spacing: 2px;
+    }
+}

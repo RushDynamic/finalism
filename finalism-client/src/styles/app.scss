@@ -1,0 +1,9 @@
+@import './vars.scss';
+@import './global.scss';
+@import './header.scss';
+
+.main-container {
+    @include flexMiddle();
+    flex-direction: column;
+    height: 100vh;
+}
