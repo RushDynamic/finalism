@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { fetchOriginalUrl } from "../services/finalism-api-service";
 import { formatUrl } from "../services/validation-util";
 import '../styles/redirect.scss';
+import Loading from "./submit/Loading";
 
 function Redirect() {
     const { url } = useParams();
@@ -30,6 +31,7 @@ function Redirect() {
     return (
         <div className="redirect-container">
             <h1>You're about to be redirected...</h1>
+            <Loading />
         </div>
     )
 }
