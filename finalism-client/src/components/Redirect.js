@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { fetchOriginalUrl } from "../services/finalism-api-service";
 import { formatUrl } from "../services/validation-util";
 import '../styles/redirect.scss';
+import Loading from "./submit/Loading";
 
 function Redirect() {
     const { url } = useParams();
@@ -10,20 +11,27 @@ function Redirect() {
 
     useEffect(() => {
         (async function () {
-            const respData = await fetchOriginalUrl(url);
-            if (respData.originalUrlOutput.success !== true) {
+            try {
+                const respData = await fetchOriginalUrl(url);
+                if (respData.originalUrlOutput === null || respData.originalUrlOutput.success !== true) {
+                    history.push('/404');
+                }
+                else {
+                    let cleanUrl = formatUrl(respData.originalUrlOutput.originalUrl);
+                    window.location.href = cleanUrl;
+                }
+            }
+            catch (err) {
                 history.push('/404');
             }
-            else {
-                let cleanUrl = formatUrl(respData.originalUrlOutput.originalUrl);
-                window.location.href = cleanUrl;
-            }
         })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div className="redirect-container">
             <h1>You're about to be redirected...</h1>
+            <Loading />
         </div>
     )
 }
