@@ -14,7 +14,7 @@ An overengineered URL shortener
 ## How to run locally
 #### Prequisites: Docker (https://www.docker.com/)
 1. Download/clone the release branch of this repository
-2. Inside the root directory, create a file named .env with the following info:
+2. Inside the finalism-server directory, create a file named .env with the following info:
 ```
 FLSM_POSTGRES_DATASOURCE_URL=jdbc:postgresql://postgres-db:<port>/
 FLSM_POSTGRES_DATASOURCE_USER=
@@ -24,10 +24,14 @@ FLSM_REDIS_PORT=
 FLSM_REDIS_HOST=
 POSTGRES_PASSWORD=
 ```
-3. Launch a terminal and enter the following command:
+3. Inside the finalism-client directory, create a file named .env with the following info:
+```
+REACT_APP_API_URL=http://localhost:8080
+```
+4. Launch a terminal and enter the following command:
 ```
 docker-compose up
 ```
 Note: first time docker build will take a couple of minutes, subsequent runs will be much faster
 
-4. Access the client at http://localhost:3000/ once all the services have been started
+5. Access the client at http://localhost:3000/ once all the services have been started
