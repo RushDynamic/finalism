@@ -27,6 +27,7 @@ POSTGRES_PASSWORD=
 3. Inside the finalism-client directory, create a file named .env with the following info:
 ```
 REACT_APP_API_URL=http://localhost:8080
+REACT_APP_CUR_URL=<hostname>
 ```
 4. Launch a terminal and enter the following command:
 ```
