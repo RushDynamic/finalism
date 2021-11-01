@@ -17,7 +17,7 @@ function Submit() {
         if (validateUrl(inputUrl)) {
             try {
                 const respData = await shortenUrl(inputUrl);
-                setOutputUrl(`http://localhost:3000/${respData.shortenUrlOutput.shortenedUrl}`);
+                setOutputUrl(`${process.env.REACT_APP_CUR_URL}/${respData.shortenUrlOutput.shortenedUrl}`);
                 setError({ isError: false });
             }
             catch (err) {

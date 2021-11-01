@@ -1,4 +1,5 @@
 import ResultContent from "./ResultContent";
+import '../../styles/result.scss'
 
 const ResultContainer = (props) => {
     return (props.resultFetched && (
