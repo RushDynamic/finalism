@@ -8,6 +8,9 @@ An overengineered URL shortener
 ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
+## Live demo
+http://flsm.rushdynamic.com
+
 ## UI
 ![flsm_ss_1](https://user-images.githubusercontent.com/77390780/139129590-a57dc748-5689-4afa-9bd1-1406adb442e9.png)
 
